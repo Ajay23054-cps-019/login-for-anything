@@ -18,14 +18,12 @@ class auth:
         self.conn.commit()
 
     def add_user(self,name,email,password):
-        self.name = name
-        self.email = email
-        self.password = password
         uid = str(uuid.uuid4())
         if self.check_uid(uid):
-            ...
+            self.cur.execute("INSERT INTO users (uid, name, email, password) VALUES (?,?,?,?)",(uid,name,email,self.hash_password(password)))
+            self.conn.commit()
         else:
-            self.add_user(self.name,self.email,self.password)
+            self.add_user(name,email,password)
 
     def check_uid(self,uid):
         self.cur.execute("SELECT uid FROM users WHERE uid = ?",(uid,))
@@ -33,5 +31,11 @@ class auth:
             return True
         return False
         
-    def hash_password(password):
+    def hash_password(self,password):
         return hashlib.sha256(password.encode()).hexdigest()
+
+    def login(self):
+        ...
+
+    def verify_login(self):
+        ...
