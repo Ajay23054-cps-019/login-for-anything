@@ -1,5 +1,6 @@
 import sqlite3
 import uuid
+import hashlib
 
 class auth:
     conn = sqlite3.connect("database.db")
@@ -32,4 +33,5 @@ class auth:
             return True
         return False
         
-
+    def hash_password(password):
+        return hashlib.sha256(password.encode()).hexdigest()
