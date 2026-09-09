@@ -1,36 +1,35 @@
+import sqlite3
+import uuid
+
 class auth:
-    def create_database(**kwargs):
-        coloumn = []
+    conn = sqlite3.connect("database.db")
+    cur = conn.cursor()
 
-        for name,datatype in kwargs.items():
-            if datatype == "table":
-                table_making = f"CREATE TABLE IF NOT EXISTS {name}"
-            elif datatype == "num":
-                coloumn.append(f"{name} INTEGER")
-            elif datatype == "text":
-                coloumn.append(f"{name} TEXT")
-            elif datatype == "unq_num":
-                coloumn.append(f"{name} INTEGER UNIQUE")
-            elif datatype == "unq_text":
-                coloumn.append(f"{name} TEXT UNIQUE")
-            else:
-                return "only table,num,text,unq_num and unq_text are allowed"
+    def __init__(self):
+        self.cur.execute("""
+            CREATE TABLE IF NOT EXISTS users (
+                uid TEXT PRIMARY KEY,
+                name VARCHAR(50),
+                email VARCHAR(100) UNIQUE,
+                password VARCHAR(255)
+            )
+        """)
+        self.conn.commit()
 
-            if coloumn:
-                import sqlite3
-                if datatype == "name.db":
-                    try:
-                        conn = sqlite3.connect(name)
-                    except:
-                        return "Enter valid name eg: database.db"
-                else:
-                    conn = sqlite3.connect("database.db")
+    def add_user(self,name,email,password):
+        self.name = name
+        self.email = email
+        self.password = password
+        uid = str(uuid.uuid4())
+        if self.check_uid(uid):
+            ...
+        else:
+            self.add_user(self.name,self.email,self.password)
 
-                query = f"""
-                    {table_making} ({", ".join(coloumn)})
-                """
-        cursor = conn.cursor()
-        cursor.execute(query)
-        conn.commit()
-        cursor.close()
-        conn.close()
+    def check_uid(self,uid):
+        self.cur.execute("SELECT uid FROM users WHERE uid = ?",(uid,))
+        if self.cur.fetchone() is None:
+            return True
+        return False
+        
+
