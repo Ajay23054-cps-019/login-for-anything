@@ -53,7 +53,6 @@ class auth:
         else:
             return False
         
-
 a = auth()
 print(a.add_user(name="Ajay",email="ajayhemanth90@gmail.com",password="Ajay@2008"))
 print(a.login("47e6b712-b02a-4921-aa5c-dda38397a5ce","Ajay@2008"))
