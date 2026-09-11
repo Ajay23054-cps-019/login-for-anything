@@ -57,7 +57,7 @@ class auth:
         self.cur.execute("SELECT password FROM users WHERE uid = ? AND email = ?",(uid,email))
         result = self.cur.fetchone()
         if result is None:
-            return "Create account"
+            return "No account found"
         if self.verify_login(password,result):
             return True
         else:
