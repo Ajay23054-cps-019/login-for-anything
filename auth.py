@@ -52,6 +52,10 @@ class auth:
             return True
         else:
             return False
+
+    def login(self,uid,email,password):
+        ...
+
         
 a = auth()
 print(a.add_user(name="Ajay",email="ajayhemanth90@gmail.com",password="Ajay@2008"))
