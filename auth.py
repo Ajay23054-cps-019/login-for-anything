@@ -54,7 +54,14 @@ class auth:
             return False
 
     def login(self,uid,email,password):
-        ...
+        self.cur.execute("SELECT password FROM users WHERE uid = ? AND email = ?",(uid,email))
+        result = self.cur.fetchone()
+        if result is None:
+            return "User not found"
+        if self.verify_login(password,result):
+            return "Login successful"
+        else:
+            return "Invalid password"
 
         
 a = auth()
