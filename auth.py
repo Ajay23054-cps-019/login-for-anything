@@ -57,11 +57,11 @@ class auth:
         self.cur.execute("SELECT password FROM users WHERE uid = ? AND email = ?",(uid,email))
         result = self.cur.fetchone()
         if result is None:
-            return "User not found"
+            return False
         if self.verify_login(password,result):
-            return "Login successful"
+            return True
         else:
-            return "Invalid password"
+            return False
 
         
 a = auth()
