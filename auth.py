@@ -65,7 +65,6 @@ class auth:
             return False
 
 
-
     
 
 a = auth()
