@@ -59,10 +59,10 @@ class auth:
         if result is None:
             return "No account found"
         if self.verify_login(password,result):
-            return True
+            return "Login success"
         
         else:
-            return False
+            return "Login Failed"
 
 
 
