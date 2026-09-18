@@ -66,6 +66,7 @@ class auth:
 
 
 
+
 #Trail
 a = auth()
 print(a.add_user(name="Ajay",email="ajayhemanth90@gmail.com",password="Ajay@2008"))
